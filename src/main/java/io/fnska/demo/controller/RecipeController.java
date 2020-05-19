@@ -1,6 +1,5 @@
 package io.fnska.demo.controller;
 
-import io.fnska.demo.domain.Ingredient;
 import io.fnska.demo.domain.Recipe;
 import io.fnska.demo.exception.ResourceNotFoundException;
 import io.fnska.demo.service.IngredientService;
@@ -17,11 +16,15 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/v1")
 public class RecipeController {
-    @Autowired
+
     private RecipeService recipeService;
+    private IngredientService ingredientService;
 
     @Autowired
-    private IngredientService ingredientService;
+    public RecipeController(RecipeService recipeService, IngredientService ingredientService) {
+        this.recipeService = recipeService;
+        this.ingredientService = ingredientService;
+    }
 
     @GetMapping("/recipes")
     public ResponseEntity<List<Recipe>> getAllRecipes() {

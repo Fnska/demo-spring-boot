@@ -12,14 +12,18 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@RestController()
+@RestController
 @RequestMapping("/api/v1/recipes/{recipeId}")
 public class IngredientController {
-    @Autowired
+
     private IngredientService ingredientService;
+    private RecipeService recipeService;
 
     @Autowired
-    private RecipeService recipeService;
+    public IngredientController(IngredientService ingredientService, RecipeService recipeService) {
+        this.ingredientService = ingredientService;
+        this.recipeService = recipeService;
+    }
 
     @GetMapping("/ingredients")
     public ResponseEntity<List<Ingredient>> getIngredientsByRecipeId(@PathVariable("recipeId") Long recipeId) {
